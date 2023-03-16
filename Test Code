@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PracticePrelim
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // declaring variables
+            int[,] board = new int[9, 9];
+            List<int> listRow = new List<int>();
+            List<int> listCol = new List<int>();
+            List<int> listMas = new List<int>();
+            Random rnd = new Random();
+            int temp = 0;
+            // generating the numbers 1-9 for rows
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                for (int nums = 1; nums < 10; nums++)
+                    listMas.Add(nums);
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    temp = rnd.Next(0, listMas.Count);
+                    if (listMas.Contains(5))
+                    {
+                        board[x, y] = listMas[temp];
+                        listMas.RemoveAt(temp);
+                    }
+                }
+            }
+
+            //
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    Console.Write(board[x, y] + "\t");
+                }
+
+                Console.WriteLine();
+            }
+
+            Console.ReadKey();
+        }
+    }
+}
