@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+	public static void Main()
+	{
+		int[, ] board = new int[9, 9];
+		List<int> row = new List<int>();
+		List<int> col = new List<int>();
+		List<int> masList = new List<int>();
+		Random rnd = new Random();
+		int pog = 0;
+		// generating the sudoku board
+		for (int x = 0; x < board.GetLength(0); x++)
+		{
+			pog = rnd.Next(1, 10);
+			for (int y = 0; y < board.GetLength(1); y++)
+			{
+				do
+				{
+					board[x, y] = pog;
+					masList.Add(pog);
+				}
+				while (masList.Contains(pog))
+			}
+		}
+
+		// displaying the board
+		for (int x = 0; x < board.GetLength(0); x++)
+		{
+			for (int y = 0; y < board.GetLength(1); y++)
+			{
+				Console.Write(board[x, y] + "\t");
+			}
+
+			Console.WriteLine();
+		}
+	}
+}
