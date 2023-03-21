@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PracticePrelim
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // declaring variables
+            int[,] board = new int[9, 9];
+            List<int> masList = new List<int>();
+            List<int> colList = new List<int>();
+            Random rnd = new Random();
+            int newNum = 0;
+            // generating the sudoku board
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                masList.Clear();
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    newNum = rnd.Next(1, 10);
+                    if (masList.Contains(newNum))
+                    {
+                        y--;
+                    }
+                    else
+                    {
+                        board[x, y] = newNum;
+                        masList.Add(newNum);
+                    }
+                }
+            }
+
+            // displaying the board
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    Console.Write(board[x, y] + "\t");
+                }
+
+                Console.WriteLine();
+            }
+
+            Console.ReadKey();
+        }
+    }
+}
