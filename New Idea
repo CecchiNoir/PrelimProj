@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ScratchPrelim
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[,] board = new int[9, 9];
+            List<int> masList = new List<int>();
+            Random rnd = new Random();
+            int newNum = 0;
+            int attempt = 0;
+            bool check = true;
+
+            // generating the sudoku board
+            //while (check == true)
+            //{
+               // attempt++;
+
+                for (int x = 0; x < board.GetLength(0); x++)
+                {
+                    for (int y = 0; y < board.GetLength(1); y++)
+                    {
+                        masList.Clear();
+
+                        for (int i = 1; i < 10; i++)
+                            masList.Add(i);
+
+                        for (int row = 0; row < 9; row++)
+                        {
+                            newNum = rnd.Next(1, 10);
+
+                            if (masList.Contains(newNum))
+                            {
+                                board[row, y] = newNum;
+                                masList.Remove(newNum);
+                            }
+                            else
+                            {
+                                row--;
+                            }
+                        }
+                        for (int col = 0; col < 9; col++)
+                        {
+                            newNum = rnd.Next(1, 10);
+
+                            if (masList.Contains(newNum))
+                            {
+                                board[y, col] = newNum;
+                                masList.Remove(newNum);
+                            }
+                            else
+                            {
+                                col--;
+                            }
+                        }
+                    }
+                }
+
+                // displaying the board
+                for (int x = 0; x < board.GetLength(0); x++)
+                {
+                    for (int y = 0; y < board.GetLength(1); y++)
+                    {
+                        Console.Write(board[x, y] + "\t");
+                    }
+
+                    Console.WriteLine();
+                }
+                Console.WriteLine("Number of attempts: " + attempt);
+                Console.ReadKey();
+                //if ()
+            //}
+        }
+    }
+}
