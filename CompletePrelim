@@ -1,0 +1,91 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PrelimProjectSem2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //declaring variables
+            int[,] board = new int[9, 9];
+            List<int>[] masList = new List<int>[27];
+            Random rnd = new Random();
+            int attempt = 0;
+            bool loop = true;
+
+            // generating the sudoku board
+            while (loop)
+            {
+                for (int gen = 0; gen < 27; gen++)
+                {
+                    masList[gen] = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                }
+
+                for (int row = 0; row < 9; row++)
+                {
+
+                    for (int col = 0; col < 9; col++)
+                    {
+                        board[row, col] = 0;
+
+                        for (int i = 0; i < 10000; i++)
+                        {
+                            int box = (3 * (row / 3)) + (col / 3);
+                            int newNum = rnd.Next(1, 10);
+
+                            if (masList[row].Contains(newNum) && masList[col + 9].Contains(newNum) && masList[box + 18].Contains(newNum))
+                            { 
+                                    board[row, col] = newNum;
+                                    masList[row].Remove(newNum);
+                                    masList[col + 9].Remove(newNum);
+                                    masList[box + 18].Remove(newNum);
+                                    break;
+                            }
+                        }
+
+                    }
+                }
+                for (int a = 0; a < board.GetLength(0); a++)
+                {
+                    for (int b = 0; b < board.GetLength(1); b++)
+                    {
+                        if (board[a, b] == 0)
+                        {
+                            loop = true;
+                            break;
+                        }
+                        else
+                        {
+                            loop = false;
+                        }
+                    }
+                    if (loop == true)
+                    {
+                        break;
+                    }
+                }
+                attempt++;
+                Console.WriteLine(attempt);
+            }
+
+
+            // displaying the board
+            for (int x = 0; x < board.GetLength(0); x++)
+            {
+                for (int y = 0; y < board.GetLength(1); y++)
+                {
+                    Console.Write(board[x, y] + "\t");
+                }
+
+                Console.WriteLine();
+            }
+            Console.WriteLine("Attempts: " + attempt);
+
+            Console.ReadKey();
+        }
+    }
+}
